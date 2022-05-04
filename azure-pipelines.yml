@@ -62,6 +62,8 @@ stages:
         # Put commands to run tests here
       displayName: 'Run tests'
 
+    # refer
+    # https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python?view=azure-devops#run-tests
     - script: |
         echo Deleting .env
         deactivate
