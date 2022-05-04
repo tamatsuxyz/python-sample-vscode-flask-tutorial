@@ -47,6 +47,27 @@ stages:
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
 
+      # The | symbol is a continuation character, indicating a multi-line script.
+      # A single-line script can immediately follow "- script:".
+      - script: |
+          python3.7 -m venv .env
+          source .env/bin/activate
+          pip3.7 install setuptools
+          pip3.7 install -r requirements.txt
+
+        # The displayName shows in the pipeline UI when a build runs
+        displayName: 'Install dependencies on build agent'
+
+      - script: |
+          # Put commands to run tests here
+        displayName: 'Run tests'
+
+      - script: |
+          echo Deleting .env
+          deactivate
+          rm -rf .env
+        displayName: 'Remove .env before zip'
+
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
